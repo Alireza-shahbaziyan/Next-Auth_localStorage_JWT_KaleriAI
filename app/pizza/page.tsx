@@ -2,11 +2,9 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import Pizza3D from "./Pizza3D";
-import { Suspense } from "react";
-import Loading from "./loading";
 export default function PizzaPage() {
 	return (
-		<Suspense fallback={<Loading/>}>
+		<>
 			<div className="w-full text-center pt-10">
 				<h1 className="text-2xl font-roboto font-bold">
 					This pizza spins to burn calories—sadly, not the ones I just
@@ -48,6 +46,6 @@ export default function PizzaPage() {
 					</mesh>
 				</Canvas>
 			</div>
-		</Suspense>
+		</>
 	);
 }

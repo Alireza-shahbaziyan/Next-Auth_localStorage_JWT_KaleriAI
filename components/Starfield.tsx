@@ -14,8 +14,8 @@ type Star = {
 export default function Starfield({
   density = 0.00025,
   maxSize = 2.2,
-  parallax = 35,         
-  speed = 12,            
+  parallax = 35,       
+  speed = 12,          
   className = "",
 }: {
   density?: number;
@@ -70,14 +70,14 @@ export default function Starfield({
       mouseY = ny * 2 - 1;
     }
 
-    function tick(t: number) {
+    function tick() {
       // نرم‌کردن پارالاکس
       viewParallaxX = lerp(viewParallaxX, mouseX * parallax, 0.06);
       viewParallaxY = lerp(viewParallaxY, mouseY * parallax, 0.06);
 
       ctx.clearRect(0, 0, width, height);
 
-      for (let s of stars) {
+      for (const s of stars) {
         // حرکت آرام با توجه به عمق
         const k = lerp(1.4, 0.35, s.depth); // نزدیک‌ها سریع‌تر
         s.x += (s.vx * speed * 0.01) * k;

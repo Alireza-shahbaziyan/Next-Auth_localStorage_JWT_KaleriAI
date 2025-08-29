@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Roboto_Condensed, Oswald as OswaldFont } from "next/font/google";
 import { ThemeProvider } from "next-themes";
-
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 const robotoCondensed = Roboto_Condensed({
 	weight: ["300", "400", "700"],
 	subsets: ["latin"],
@@ -18,6 +18,7 @@ const oswald = OswaldFont({
 });
 
 export const metadata: Metadata = {
+	metadataBase: new URL(siteUrl), 
 	title: "KaleriAI – Smart Calorie & Diet Coach",
 	description:
 		"Track calories from a photo. KaleriAI uses depth + AI to estimate calories, macros, and offer personalized diet tips.",
