@@ -1,4 +1,4 @@
-// test/login-form.test.tsx
+
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
@@ -17,14 +17,14 @@ describe("LoginForm (phone-based)", () => {
   it("renders inputs and submit button", () => {
     render(<LoginForm />);
     expect(screen.getByLabelText(/phone/i)).toBeInTheDocument();
-    expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/^password$/i) ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: /login/i })).toBeInTheDocument();
   });
 
   it("shows validation error for invalid Iranian phone", async () => {
     render(<LoginForm />);
     await userEvent.type(screen.getByLabelText(/phone/i), "093"); // invalid
-    await userEvent.type(screen.getByLabelText(/password/i), "secret123");
+    await userEvent.type(screen.getByLabelText(/^password$/i) , "secret123");
     await userEvent.click(screen.getByRole("button", { name: /login/i }));
 
     expect(await screen.findByText(/invalid iranian phone number/i)).toBeInTheDocument();
@@ -40,7 +40,7 @@ describe("LoginForm (phone-based)", () => {
 
     render(<LoginForm />);
     await userEvent.type(screen.getByLabelText(/phone/i), "09121234567");
-    await userEvent.type(screen.getByLabelText(/password/i), "secret123");
+    await userEvent.type(screen.getByLabelText(/^password$/i) , "secret123");
     await userEvent.click(screen.getByRole("button", { name: /login/i }));
 
     expect(await screen.findByText(/user not found/i)).toBeInTheDocument();
@@ -55,7 +55,7 @@ describe("LoginForm (phone-based)", () => {
 
     render(<LoginForm />);
     await userEvent.type(screen.getByLabelText(/phone/i), "09121234567");
-    await userEvent.type(screen.getByLabelText(/password/i), "badpass");
+    await userEvent.type(screen.getByLabelText(/^password$/i) , "badpass");
     await userEvent.click(screen.getByRole("button", { name: /login/i }));
 
     expect(await screen.findByText(/invalid credentials/i)).toBeInTheDocument();
@@ -70,7 +70,7 @@ describe("LoginForm (phone-based)", () => {
 
     render(<LoginForm />);
     await userEvent.type(screen.getByLabelText(/phone/i), "09121234567");
-    await userEvent.type(screen.getByLabelText(/password/i), "secret123");
+    await userEvent.type(screen.getByLabelText(/^password$/i) , "secret123");
     await userEvent.click(screen.getByRole("button", { name: /login/i }));
 
     await waitFor(() => {
@@ -90,7 +90,7 @@ describe("LoginForm (phone-based)", () => {
 
     render(<LoginForm />);
     await userEvent.type(screen.getByLabelText(/phone/i), "09121234567");
-    await userEvent.type(screen.getByLabelText(/password/i), "secret123");
+    await userEvent.type(screen.getByLabelText(/^password$/i) , "secret123");
     await userEvent.click(screen.getByRole("button", { name: /login/i }));
 
     await waitFor(() => {

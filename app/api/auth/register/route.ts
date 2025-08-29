@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
 import { users, User } from "@/lib/db";
 import bcrypt from "bcryptjs";
-
-// فقط +98 / 0098 / 0 قبل از 9 مجاز است (بدون حالت bare 9)
-const IR_PHONE = /^(?:\+98|0098|0)9\d{9}$/;
+import IR_PHONE from "@/utils/PhoneRegex";
 
 function normalizeIranPhone(input: string): string | null {
   if (!input) return null;

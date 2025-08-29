@@ -1,11 +1,10 @@
-// /app/api/auth/login/route.ts
+
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { users } from "@/lib/db";
 import { signToken } from "@/lib/token";
+import IR_PHONE from "@/utils/PhoneRegex";
 
-// فقط حالت‌های 09... / +98... / 0098...
-const IR_PHONE = /^(?:\+98|0098|0)9\d{9}$/;
 
 function normalizeIranPhone(input: string): string | null {
   if (!input) return null;

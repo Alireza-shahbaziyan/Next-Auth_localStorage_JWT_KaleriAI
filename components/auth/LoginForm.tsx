@@ -6,9 +6,10 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { CircleAlert } from "lucide-react";
 import { FormPhone } from "@/types/Form";
+import IR_PHONE from "@/utils/PhoneRegex";
 
 
-const IR_PHONE = /^(?:\+98|0098|0)?9\d{9}$/;
+
 
 const LoginForm: React.FC = () => {
   const { register, handleSubmit, formState: { errors, isSubmitting }, setError, clearErrors } =
@@ -60,43 +61,47 @@ const LoginForm: React.FC = () => {
         <p className="text-red-500 text-sm mb-2">{errors.root.message}</p>
       )}
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-        <div>
-          <label className="block text-sm text-white mb-1">Phone</label>
-          <input
-            type="tel"
-            placeholder="+989..."
-            className="w-full min-w-44  px-4 py-2 rounded-lg bg-gray-800 text-white"
-            {...register("phone", {
-              required: "Phone is required",
-              pattern: { value: IR_PHONE, message: "Invalid Iranian phone number" },
-            })}
-          />
-          {errors.phone && (
-            <p className="text-red-500 text-sm">{errors.phone.message}</p>
-          )}
-        </div>
+<form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+  <div>
+    <label htmlFor="phone" className="block text-sm text-white mb-1">Phone</label>
+    <input
+      id="phone"                          
+      type="tel"
+      placeholder="+989..."
+      className="w-full min-w-44 px-4 py-2 rounded-lg bg-gray-800 text-white"
+      aria-invalid={!!errors.phone}        
+      {...register("phone", {
+        required: "Phone is required",
+        pattern: { value: IR_PHONE, message: "Invalid Iranian phone number" },
+      })}
+    />
+    {errors.phone && (
+      <p className="text-red-500 text-sm">{errors.phone.message}</p>
+    )}
+  </div>
 
-        <div>
-          <label className="block text-sm text-white mb-1">Password</label>
-          <input
-            type="password"
-            className="w-full min-w-44 px-4 py-2 rounded-lg bg-gray-800 text-white"
-            {...register("password", { required: "Password is required" })}
-          />
-          {errors.password && (
-            <p className="text-red-500 text-sm">{errors.password.message}</p>
-          )}
-        </div>
+  <div>
+    <label htmlFor="password" className="block text-sm text-white mb-1">Password</label>
+    <input
+      id="password"                        
+      type="password"
+      className="w-full min-w-44 px-4 py-2 rounded-lg bg-gray-800 text-white"
+      aria-invalid={!!errors.password}
+      {...register("password", { required: "Password is required" })}
+    />
+    {errors.password && (
+      <p className="text-red-500 text-sm">{errors.password.message}</p>
+    )}
+  </div>
 
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full py-2 bg-indigo-400 text-black font-semibold rounded-lg hover:bg-indigo-500"
-        >
-          {isSubmitting ? "Logging in..." : "Login"}
-        </button>
-      </form>
+  <button
+    type="submit"
+    disabled={isSubmitting}
+    className="w-full py-2 bg-indigo-400 text-black font-semibold rounded-lg hover:bg-indigo-500"
+  >
+    {isSubmitting ? "Logging in..." : "Login"}
+  </button>
+</form>
 
       <p className="text-sm text-gray-400 mt-4 text-center">
         Don&apos;t have an account?{" "}
